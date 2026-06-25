@@ -12,15 +12,20 @@
             --border-color: #4a4a4a;
             --text-main: #ffffff;
             --text-secondary: #aaaaaa;
-            --accent: #ff5555;
-            --btn-bg: #8a2be2;
-            --btn-hover: #7a1cb9;
+            --btn-bg: #8a2be2;       /* Фиолетовый цвет кнопок */
+            --btn-hover: #7a1cb9;     /* Чуть темнее при наведении */
+            --accent: #ff5555;       /* Красный для акцентов (если понадобится) */
         }
 
-        body { margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; position: relative; }
+        body { 
+            margin: 0; padding: 20px; 
+            font-family: -apple-system, BlinkMacSystemFont, Roboto, sans-serif; 
+            background-color: var(--bg-color); color: var(--text-main); 
+            min-height: 100vh; position: relative; 
+        }
         .container { max-width: 640px; margin: 0 auto; }
 
-        /* Кнопка регистрации (видна, если нет аккаунта) */
+        /* Кнопка регистрации (видна, если НЕТ аккаунта) */
         .register-btn {
             position: fixed; top: 20px; right: 20px;
             background-color: var(--btn-bg); color: #fff;
@@ -31,7 +36,7 @@
         }
         .register-btn:hover { background-color: var(--btn-hover); transform: translateY(-2px); }
 
-        /* Иконка профиля (видна, если есть аккаунт) */
+        /* Иконка профиля (видна, если ЕСТЬ аккаунт) */
         .profile-icon {
             position: fixed; top: 20px; right: 20px;
             width: 44px; height: 44px; border-radius: 50%;
@@ -69,30 +74,25 @@
         }
         .form-input:focus { outline: none; border-color: var(--btn-bg); }
 
-        .submit-btn {
+        /* Единый стиль для всех кнопок (регистрация и создание темы) */
+        .action-btn {
             display: inline-block; background-color: var(--btn-bg); color: #fff;
             padding: 10px 20px; border-radius: 20px; text-decoration: none;
             font-weight: 600; font-size: 14px; box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
             transition: all 0.2s ease; width: auto; cursor: pointer; border: none;
         }
-        .submit-btn:hover { background-color: var(--btn-hover); transform: translateY(-2px); }
+        .action-btn:hover { background-color: var(--btn-hover); transform: translateY(-2px); }
 
         .empty-state { text-align: center; padding: 40px 20px; color: var(--text-secondary); }
         .empty-state h2 { margin: 0 0 12px 0; color: var(--text-main); font-size: 20px; }
-        .add-topic-btn {
-            display: inline-block; margin-top: 20px; background: var(--accent); color: #fff;
-            padding: 10px 20px; border-radius: 20px; text-decoration: none;
-            font-weight: 500; font-size: 14px; transition: background 0.2s ease;
-        }
-        .add-topic-btn:hover { background: var(--accent-hover); }
     </style>
 </head>
 <body>
 
-    <!-- Кнопка (видна, если НЕТ аккаунта) -->
+    <!-- Кнопка регистрации (видна, если нет аккаунта) -->
     <a href="#" class="register-btn" id="reg-trigger">Зарегистрироваться</a>
 
-    <!-- Иконка (видна, если ЕСТЬ аккаунт) -->
+    <!-- Иконка профиля (видна, если есть аккаунт) -->
     <div class="profile-icon" id="profile-trigger" title="Профиль"></div>
 
     <div class="container">
@@ -109,8 +109,8 @@
                     <label class="form-label" for="password">Пароль</label>
                     <input type="password" id="password" class="form-input" placeholder="Минимум 6 символов">
                 </div>
-                <!-- Поле префикса удалено -->
-                <button type="button" class="submit-btn" onclick="handleRegister()">Зарегистрироваться</button>
+                <!-- Кнопка внутри формы — теперь с классом action-btn -->
+                <button type="button" class="action-btn" onclick="handleRegister()">Зарегистрироваться</button>
             </div>
         </header>
 
@@ -153,7 +153,7 @@
                 return;
             }
 
-            // Сохраняем в localStorage (в реальном проекте пароли хешируют!)
+            // Сохраняем в localStorage
             const userData = { username, password };
             localStorage.setItem('forum_user', JSON.stringify(userData));
 
@@ -190,7 +190,8 @@
                     <div class="empty-state">
                         <h2>Тем пока нет</h2>
                         <p>Будь первым — создай новую тему на форуме.</p>
-                        <a href="#" class="add-topic-btn">Создать тему</a>
+                        <!-- Кнопка "Создать тему" теперь с классом action-btn (такой же стиль) -->
+                        <a href="#" class="action-btn">Создать тему</a>
                     </div>`;
                 return;
             }
@@ -207,7 +208,7 @@
                     <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
                         ${escapeHtml(topic.desc)}
                     </p>
-                    <a href="#" style="display: inline-block; background: var(--accent); color: #fff; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-weight: 500; font-size: 14px;">
+                    <a href="#" style="display: inline-block; background: var(--accent); color: #000; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-weight: 500; font-size: 14px;">
                         Перейти к теме
                     </a>
                 </div>`).join('');
